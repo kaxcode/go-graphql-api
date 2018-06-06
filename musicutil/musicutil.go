@@ -120,3 +120,12 @@ func init() {
 		},
 	})
 }
+
+//GetAllDiscs return all the dummy data
+func GetAllDiscs() []Disc {
+	discs := []Disc{}
+	for _, disc := range DiscData {
+		discs = append(discs, disc)
+	}
+	return discs
+}
