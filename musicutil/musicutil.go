@@ -119,6 +119,24 @@ func init() {
 			},
 		},
 	})
+
+	queryType := graphql.NewObject(graphql.ObjectConfig{
+		Name: "Query",
+		Fields: graphql.Fields{
+			"discs": &graphql.Field{
+				Type: graphql.NewList(discType), // we return a list of discType, defined above
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					return GetAllDiscs(), nil // <-- every time this query is called, return the result of GetAllDiscs()
+				},
+			},
+		},
+	})
+
+	// schema definition
+	MusicSchema, _ = graphql.NewSchema(graphql.SchemaConfig{
+		Query: queryType,
+		// mutation will be added later
+	})
 }
 
 //GetAllDiscs return all the dummy data
